@@ -1,38 +1,45 @@
 import * as React from 'react'
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardHeader from '@mui/material/CardHeader'
-import { CardActionArea, CardActions, CardMedia } from '@mui/material';
-import Button from '@mui/material/Button';
-import Link from '@mui/material';
+import { 
+    Button, 
+    Card, 
+    CardContent, 
+    CardHeader, 
+    CardActionArea, 
+    CardActions, 
+    CardMedia,
+    Typography,
+} from '@mui/material';
 
-
+import { Pokemon } from '../services';
 
 function PokemonCard(props : {
     key: number,
-    headerData: string,
-    contentData: string,
-    imgUrl : string ,
-    imgTitle ?: string,
-    url: string
+    pokemon: Pokemon
 }) {
 
+    function handleOnClick(e, data){
+        const url : string 
+            = `https://pokeapi.co/api/v2/pokemon/${data.name}`
+        window.open(url)
+    }
     return (
             <Card variant='outlined' 
                 sx={{ width: 250, height: 400, boxShadow:2 }} >
+                <CardHeader 
+                    title={`${props.pokemon.name}` ?? "Pokemon Name"} 
+                    subheader={`Pokemon #${props.pokemon.id}` ?? "Pokemon #"}/>
 
                 <CardMedia
-                    sx={{ height: 275 }}
-                    image={props.imgUrl}
-                    title={props.imgTitle}
+                    sx={{ height: 220 }}
+                    image={props.pokemon.imgUrl}
                 />
 
                 <CardContent sx={{ height: 300, fontSize:16 }}>
-
-                    {props.contentData ?? "Empty Content"}
                     
                     <CardActions sx={{ paddingTop: 2 }}>
-                        <Button size="medium">Learn More</Button>
+                        <Button size="medium" onClick={(e) => {
+                            handleOnClick(e, props.pokemon)
+                        }}>Learn More</Button>
                     </CardActions>
                 </CardContent>
     

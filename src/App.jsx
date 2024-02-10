@@ -16,15 +16,20 @@ function App() {
     {key: 4, name: 4, url: 'card4'},
   ]);
 
-  useEffect(() => {
+  /* 
+    initial render 
 
+    Using list on the dependencies
+    means only render on the first load
+  */
+  useEffect(() => {
     let client = new PokemonClient();
-    let data = client.getPokemon().then((e) => {
-      console.log(e)
-      setCards(e);
+
+    client.getPokemon().then((e) => {
+      setCards(e);  // update state of cards with new data
     })
 
-  }, [])
+  }, []) // dependencies
 
   return (
     <>
@@ -32,7 +37,7 @@ function App() {
         PokeBrowser
       </AppBar>
       <PokemonGrid 
-        spacing={1} 
+        spacing={2} 
         data={cards} />
     </>
   );
