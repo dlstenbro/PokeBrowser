@@ -1,29 +1,45 @@
-import './App.css';
+import { useState } from 'react';
+import './App.css'
+import { 
+  PokemonClient, 
+}
+from './services'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src="Octocat.png" className="App-logo" alt="logo" />
-        <p>
-          GitHub Codespaces <span className="heart">♥️</span> React
-        </p>
-        <p className="small">
-          Edit <code>src/App.jsx</code> and save to reload.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </p>
-      </header>
-    </div>
-  );
+import { PokemonCard, PokemonGrid } from './components';
+import { Container, Card, AppBar } from '@mui/material'
+
+const createPokemonCards = (newData) => {
+  let cardsUI = data.map((e) => 
+    <PokemonCard
+      key={e.name} 
+      contentData={e.url} 
+      headerData={e.name} />
+  )
+
+  console.log(cardsUI);
+  return cardsUI;
 }
 
-export default App;
+function App() {
+  const [cards, setCards] = useState([]);
+
+  let client = new PokemonClient()
+
+  return (
+    <>
+      <AppBar>
+        PokeBrowser
+      </AppBar>
+      
+        <PokemonGrid>
+          {
+            cards.map(card => {
+              <Card key={card.id}>{card.name}</Card>
+            })
+          }
+        </PokemonGrid>
+    </>
+  );
+};
+
+export default App
